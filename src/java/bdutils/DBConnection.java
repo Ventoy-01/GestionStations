@@ -15,17 +15,28 @@ import java.util.logging.Logger;
 public class DBConnection {
     // definir une methode pour recuperer la connection a la BD
     
-    public static Connection getConnection() throws ClassNotFoundException, SQLException{
-        // charger le pilote de la BD
-        Class.forName("com.mysql.cj.jdbc.Driver");
-        // definir les parametres de connection a la BD
-        String url="jdbc:mysql://localhost:3306/stationdb";
-        String user="root";
-        String password="";
-        // Etablir la connection
-        return DriverManager.getConnection(url, user, password);  
+    // public static Connection getConnection() throws ClassNotFoundException, SQLException{
+    //     // charger le pilote de la BD
+    //     Class.forName("com.mysql.cj.jdbc.Driver");
+    //     // definir les parametres de connection a la BD
+    //     String url="jdbc:mysql://localhost:3306/stationdb";
+    //     String user="root";
+    //     String password="";
+    //     // Etablir la connection
+    //     return DriverManager.getConnection(url, user, password);  
         
-    } 
+    // } 
+
+public class DBConnection {
+    public static Connection getConnection() throws SQLException, ClassNotFoundException {
+        Class.forName("com.mysql.cj.jdbc.Driver");
+        String url = System.getenv("DB_URL");
+        String user = System.getenv("DB_USER");
+        String password = System.getenv("DB_PASSWORD");
+        return DriverManager.getConnection(url, user, password);
+    }
+}
+
     
     public static void closeCon(ResultSet r, PreparedStatement p,Connection c){
         
